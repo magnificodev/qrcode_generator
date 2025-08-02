@@ -1,7 +1,8 @@
 import os
 import qrcode
+import hashlib
 
-domain = "https://sample-domain.com"
+domain = "https://thesublimehouseevent.vn"
 start_uid = 1
 end_uid = 500
 
@@ -10,7 +11,8 @@ os.makedirs("qr_codes", exist_ok=True)
 for i in range(start_uid, end_uid + 1):
     
     uid = f"{i:03d}" # Format the uid to be 3 digits long
-    url = f"{domain}?uid={uid}" # Create the url with the uid
+    hash_uid = hashlib.md5(uid.encode()).hexdigest() # Hash the uid
+    url = f"{domain}?uid={hash_uid}" # Create the url with the uid
     
     # Create the QR code
     qr = qrcode.QRCode(
